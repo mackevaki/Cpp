@@ -9,6 +9,15 @@
 #include <vector>
 
 void prepare(std::string &s, std::set <char> &skip) {
+	/*
+		FIXIT: Давайте перепишем эту ф-и в стиле С++.
+		У вас в стиле чистого Си. Уверяю, что получится гораздо лаконичнее.
+		
+		воспользуйтесь: 1) std::transform вместо цикла по всем символам
+		2) isalpha для проверки, является ли символ буквой
+		3) s.back() чтобы узнать последний символ строчки
+		4) s.pop_back() для удаления последнего символа строки
+	*/
 	char *cstr = strdupa(s.c_str());
 	while(skip.find(cstr[0]) != skip.end())
 		++cstr;
@@ -43,10 +52,16 @@ int main() {
 		count[s]++;
 	}
 	std::vector < std::pair<int, std::string> > vec;
+	
+	// FIXIT: Явно напрашивается auto вместо длинного названия типа, либо typedef
 	for (std::pair<std::string,int> pair : count)
 		vec.push_back(make_pair(pair.second, pair.first));
 	std::sort(vec.begin(), vec.end());
+	
+	// FIXIT: объявить отдельную ф-ю компаратор более понятно, чем сортировать, а потом разворачивать массив
 	std::reverse(vec.begin(), vec.end());
+	
+	// Нужна отдельная константа для 5
 	for(int i = 0; i < 5; ++i) {
 		std::cout << vec[i].second << std::endl;
 	}
