@@ -6,64 +6,59 @@
 #include <string>
 #include <cstring>
 #include <algorithm>
+#include <locale>
 #include <vector>
 
-void prepare(std::string &s, std::set <char> &skip) {
-	/*
-		FIXIT: Давайте перепишем эту ф-и в стиле С++.
-		У вас в стиле чистого Си. Уверяю, что получится гораздо лаконичнее.
-		
-		воспользуйтесь: 1) std::transform вместо цикла по всем символам
-		2) isalpha для проверки, является ли символ буквой
-		3) s.back() чтобы узнать последний символ строчки
-		4) s.pop_back() для удаления последнего символа строки
-	*/
-	char *cstr = strdupa(s.c_str());
-	while(skip.find(cstr[0]) != skip.end())
-		++cstr;
-	char *end = cstr + strlen(cstr);
-	while(end > cstr && (skip.find(*(end - 1)) != skip.end()))
-		--end;
-	*(end) = '\0';
-	for(char *c = cstr; c < end; ++c) {
-		*c = tolower(*c);
-	}
-	s = std::string(cstr);
+const int REG_WORDS = 10;
+
+struct Statistic {
+	int count;
+	std::string word;
+};
+
+bool comp(const Statistic& lhs, const Statistic& rhs)
+{
+	return lhs.count > rhs.count;
+}
+
+void prepare(std::string &s) {
+	std::locale loc;
+	for (std::string::iterator it = s.begin(); it != s.end(); ++it)
+		if (std::ispunct(*it, loc)) {
+			s.erase(it);
+			if(it != s.begin())
+				it--;
+		}
+	std::transform(s.begin(), s.end(), s.begin(), ::tolower);
 }
 
 int main() {
-	std::set <char> skip;
-	std::string sk =  " (){}[]/\\.,<>!`~?@#'\"\n\t :-;\r";
-	sk.push_back(0xc2);
-	sk.push_back(0xa0);
-	for(char c : sk) {
-		skip.insert(c);
-	}
+	Statistic stat;
 	freopen("Hamlet.txt", "r", stdin);
 	std::string s;
 	std::map<std::string, int> count;
-	while(true) {
+	std::map<std::string, int>::iterator it;
+	while (true) {
 		std::cin >> s;
-		if(std::cin.eof())
+		if (std::cin.eof())
 			break;
-		prepare(s, skip);
-		if(count.find(s) == count.end())
+		prepare(s);
+		if (count.find(s) == count.end())
 			count[s] = 0;
 		count[s]++;
 	}
-	std::vector < std::pair<int, std::string> > vec;
-	
-	// FIXIT: Явно напрашивается auto вместо длинного названия типа, либо typedef
-	for (std::pair<std::string,int> pair : count)
-		vec.push_back(make_pair(pair.second, pair.first));
-	std::sort(vec.begin(), vec.end());
-	
-	// FIXIT: объявить отдельную ф-ю компаратор более понятно, чем сортировать, а потом разворачивать массив
-	std::reverse(vec.begin(), vec.end());
-	
-	// Нужна отдельная константа для 5
-	for(int i = 0; i < 5; ++i) {
-		std::cout << vec[i].second << std::endl;
+	std::vector < Statistic > vec;
+	int i = 0;
+	for (it = count.begin(); it != count.end(); ++it) {
+		vec.push_back(stat);
+		vec.at(i).count = (*it).second;
+		vec.at(i).word = (*it).first;
+		i++;
+	}
+	std::sort(vec.begin(), vec.end(), comp);
+
+	for (int i = 0; i < REG_WORDS; ++i) {
+		std::cout << vec[i].word << std::endl;
 	}
 	return 0;
 }
