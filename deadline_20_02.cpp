@@ -16,8 +16,7 @@ struct Statistic {
 	std::string word;
 };
 
-bool comp(const Statistic& lhs, const Statistic& rhs)
-{
+bool comp(const Statistic &lhs, const Statistic &rhs) {
 	return lhs.count > rhs.count;
 }
 
