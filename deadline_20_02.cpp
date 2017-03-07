@@ -22,6 +22,16 @@ bool comp(const Statistic &lhs, const Statistic &rhs) {
 
 void prepare(std::string &s) {
 	std::locale loc;
+	/*
+	Этот код не будет работать для длинных строк в общем случае ... Мы с вами поговорим, надеюсь, каким образом выделяется память под строку
+	и как освобождается.
+	
+	Лучше сделать так, как написано в https://en.wikipedia.org/wiki/Erase%E2%80%93remove_idiom
+	
+	s.erase(std::remove_if(s.begin(), s.end(), std::ispunct), s.end());
+	
+	Одна строка вместо вашего цикла. Прочитайте, что такое алгоритм remove_if
+	*/
 	for (std::string::iterator it = s.begin(); it != s.end(); ++it)
 		if (std::ispunct(*it, loc)) {
 			s.erase(it);
