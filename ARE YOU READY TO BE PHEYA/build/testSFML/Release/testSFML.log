@@ -1,0 +1,16 @@
+﻿  game.cpp
+c:\users\юлия\documents\visual studio 2017\projects\testsfml\testsfml\src\game.h(8): warning C4305: инициализация: усечение из "double" в "float"
+  main.cpp
+c:\users\юлия\documents\visual studio 2017\projects\testsfml\testsfml\src\game.h(8): warning C4305: инициализация: усечение из "double" в "float"
+..\..\..\src\main.cpp(13): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
+..\..\..\src\main.cpp(45): warning C4244: аргумент: преобразование "unsigned int" в "float", возможна потеря данных
+..\..\..\src\main.cpp(47): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+..\..\..\src\main.cpp(50): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+..\..\..\src\main.cpp(53): warning C4018: <: несоответствие типов со знаком и без знака
+  Создание кода
+  1 of 194 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  testSFML.vcxproj -> C:\Users\Юлия\Documents\Visual Studio 2017\Projects\testSFML\TestSFML\vc2015project\testSFML\..\..\bin\testSFML.exe
+  testSFML.vcxproj -> C:\Users\Юлия\Documents\Visual Studio 2017\Projects\testSFML\TestSFML\vc2015project\testSFML\..\..\bin\testSFML.pdb (Full PDB)
